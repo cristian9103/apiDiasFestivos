@@ -151,39 +151,6 @@ public class FestivoServicio implements IFestivoServicio {
             
     }
 
-    /*@Override
-    public String verificar(int año, int mes, int dia) {
-        List<Festivo> listaFestivos = repositorio.findAll();
-        List<Festivo> listaFestivosTipo1 = new ArrayList<Festivo>();
-        List<Festivo> listaFestivosTipo2 = new ArrayList<Festivo>();
-        List<Festivo> listaFestivosTipo3 = new ArrayList<Festivo>();
-        List<Festivo> listaFestivosTipo4 = new ArrayList<Festivo>();
-        
-        try {
-            LocalDate fecha = LocalDate.of(año, mes, dia);
-        } catch (DateTimeException e) {
-            return "Fecha No válida";
-        }
-
-        for (Festivo festivo : listaFestivos) {
-            if (festivo.getTipo().getId() == 1){
-                listaFestivosTipo1.add(festivo);
-            } else if (festivo.getTipo().getId() == 2){
-                listaFestivosTipo2.add(festivo);
-            }else if (festivo.getTipo().getId() == 3) {
-                listaFestivosTipo3.add(festivo);
-            } else {
-                listaFestivosTipo4.add(festivo);
-            }
-        }
-
-        if (esFestivoTipo1(listaFestivosTipo1, año, mes, dia) || esFestivoTipo2(listaFestivosTipo2, año, mes, dia) || esFestivoTipo3(listaFestivosTipo3, año, mes, dia) || esFestivoTipo4(listaFestivosTipo4, año, mes, dia))
-            return "Es Festivo";
-        else 
-            return "No es Festivo";
-            
-    }*/
-
     @Override
     public List<Festivo> listar() {
         // TODO Auto-generated method stub
