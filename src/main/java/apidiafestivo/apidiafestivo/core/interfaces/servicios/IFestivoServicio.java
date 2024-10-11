@@ -3,11 +3,8 @@ package apidiafestivo.apidiafestivo.core.interfaces.servicios;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import apidiafestivo.apidiafestivo.dominio.Festivo;
 
-@Service
 public interface IFestivoServicio {
 
     public Date getDomingoRamos(Integer año);
@@ -15,6 +12,8 @@ public interface IFestivoServicio {
     public Date incrementarDias(Date fecha, Integer dias);
 
     public Date siguienteLunes(Date fecha);
+
+    public String verificar(int año, int mes, int dia);
 
     public List<Festivo> listar();
 

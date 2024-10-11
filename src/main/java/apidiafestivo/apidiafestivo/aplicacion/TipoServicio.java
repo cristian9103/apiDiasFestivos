@@ -2,10 +2,13 @@ package apidiafestivo.apidiafestivo.aplicacion;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import apidiafestivo.apidiafestivo.core.interfaces.repositorios.ITipoRepositorio;
 import apidiafestivo.apidiafestivo.core.interfaces.servicios.ITipoServicio;
-import apidiafestivo.apidiafestivo.dominio.Festivo;
+import apidiafestivo.apidiafestivo.dominio.Tipo;
 
+@Service
 public class TipoServicio implements ITipoServicio {
 
     private ITipoRepositorio repositorio;
@@ -15,31 +18,31 @@ public class TipoServicio implements ITipoServicio {
     }
 
     @Override
-    public List<Festivo> listar() {
+    public List<Tipo> listar() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listar'");
     }
 
     @Override
-    public Festivo obtener(Integer id) {
+    public Tipo obtener(Integer id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'obtener'");
     }
 
     @Override
-    public List<Festivo> buscar(String nombre) {
+    public List<Tipo> buscar(String nombre) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buscar'");
     }
 
     @Override
-    public Festivo agregar(Festivo tipo) {
+    public Tipo agregar(Tipo tipo) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'agregar'");
     }
 
     @Override
-    public Festivo modificar(Festivo tipo) {
+    public Tipo modificar(Tipo tipo) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'modificar'");
     }
@@ -50,4 +53,7 @@ public class TipoServicio implements ITipoServicio {
         throw new UnsupportedOperationException("Unimplemented method 'eliminar'");
     }
 
+    
 }
+
+

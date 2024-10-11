@@ -2,11 +2,8 @@ package apidiafestivo.apidiafestivo.core.interfaces.servicios;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import apidiafestivo.apidiafestivo.dominio.Tipo;
 
-@Service
 public interface ITipoServicio {
 
     public List<Tipo> listar();
