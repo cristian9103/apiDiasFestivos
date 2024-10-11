@@ -133,6 +133,26 @@ public class FestivoServicio implements IFestivoServicio {
 
     @Override
     public String verificar(int año, int mes, int dia) {
+        List<Festivo> listaFestivosTipo1 = repositorio.Buscar(1);
+        List<Festivo> listaFestivosTipo2 = repositorio.Buscar(2);
+        List<Festivo> listaFestivosTipo3 = repositorio.Buscar(3);
+        List<Festivo> listaFestivosTipo4 = repositorio.Buscar(4);
+        
+        try {
+            LocalDate fecha = LocalDate.of(año, mes, dia);
+        } catch (DateTimeException e) {
+            return "Fecha No válida";
+        }
+
+        if (esFestivoTipo1(listaFestivosTipo1, año, mes, dia) || esFestivoTipo2(listaFestivosTipo2, año, mes, dia) || esFestivoTipo3(listaFestivosTipo3, año, mes, dia) || esFestivoTipo4(listaFestivosTipo4, año, mes, dia))
+            return "Es Festivo";
+        else 
+            return "No es Festivo";
+            
+    }
+
+    /*@Override
+    public String verificar(int año, int mes, int dia) {
         List<Festivo> listaFestivos = repositorio.findAll();
         List<Festivo> listaFestivosTipo1 = new ArrayList<Festivo>();
         List<Festivo> listaFestivosTipo2 = new ArrayList<Festivo>();
@@ -162,7 +182,7 @@ public class FestivoServicio implements IFestivoServicio {
         else 
             return "No es Festivo";
             
-    }
+    }*/
 
     @Override
     public List<Festivo> listar() {
