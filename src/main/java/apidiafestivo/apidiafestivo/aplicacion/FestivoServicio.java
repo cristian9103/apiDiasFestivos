@@ -2,7 +2,6 @@ package apidiafestivo.apidiafestivo.aplicacion;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +31,7 @@ public class FestivoServicio implements IFestivoServicio {
         int dias = d + (2 * b + 4 * c + 6 * d + 5) % 7;
 
         int dia = 15 + dias;
-        int mes = 3;
+        int mes = 3;  
 
         if (dia > 31){
             dia -= 31;
@@ -67,88 +66,27 @@ public class FestivoServicio implements IFestivoServicio {
         return fecha;       
     }
 
-    public boolean esFestivoTipo1(List<Festivo> listaFestivos, int año, int mes, int dia) {
-        List<Date> listaFechaFestivos = new ArrayList<Date>();
-
-        for (Festivo festivo : listaFestivos) {
-            listaFechaFestivos.add(new Date(año - 1900, festivo.getMes() - 1, festivo.getDia()));
-        }
-
-        for (Date festivo : listaFechaFestivos) {
-            if (festivo.compareTo(new Date(año - 1900, mes - 1, dia)) == 0)
-                return true;
-        }
-
-        return false;
-    }
-
-    public boolean esFestivoTipo2(List<Festivo> listaFestivos, int año, int mes, int dia) {
-        List<Date> listaFechaFestivos = new ArrayList<Date>();
-
-        for (Festivo festivo : listaFestivos) {
-            listaFechaFestivos.add(siguienteLunes(new Date(año - 1900, festivo.getMes() - 1, festivo.getDia())));
-        }
-
-        for (Date festivo : listaFechaFestivos) {
-            if (festivo.compareTo(new Date(año - 1900, mes - 1, dia)) == 0)
-                return true;
-        }
-
-        return false;
-    }
-
-    public boolean esFestivoTipo3(List<Festivo> listaFestivos, int año, int mes, int dia) {
-        List<Date> listaFechaFestivos = new ArrayList<Date>();
-        Date domingoRamos = getDomingoRamos(año);
-        Date domingoPascua = incrementarDias(domingoRamos, 7);
-
-        for (Festivo festivo : listaFestivos) {
-            listaFechaFestivos.add(incrementarDias(domingoPascua, festivo.getDiasPascua()));
-        }
-
-        for (Date festivo : listaFechaFestivos) {
-            if (festivo.compareTo(new Date(año - 1900, mes - 1, dia)) == 0)
-                return true;
-        }
-        
-        return false;
-    }
-
-    public boolean esFestivoTipo4(List<Festivo> listaFestivos, int año, int mes, int dia) {
-        List<Date> listaFechaFestivos = new ArrayList<Date>();
-        Date domingoRamos = getDomingoRamos(año);
-        Date domingoPascua = incrementarDias(domingoRamos, 7);
-
-        for (Festivo festivo : listaFestivos) {
-            listaFechaFestivos.add(siguienteLunes(incrementarDias(domingoPascua, festivo.getDiasPascua())));
-        }
-
-        for (Date festivo : listaFechaFestivos) {
-            if (festivo.compareTo(new Date(año - 1900, mes - 1, dia)) == 0)
-                return true;
-        }
-        
-        return false;
-    }
-
     @Override
     public String verificar(int año, int mes, int dia) {
-        List<Festivo> listaFestivosTipo1 = repositorio.Buscar(1);
-        List<Festivo> listaFestivosTipo2 = repositorio.Buscar(2);
-        List<Festivo> listaFestivosTipo3 = repositorio.Buscar(3);
-        List<Festivo> listaFestivosTipo4 = repositorio.Buscar(4);
-        
         try {
             LocalDate fecha = LocalDate.of(año, mes, dia);
         } catch (DateTimeException e) {
             return "Fecha No válida";
         }
 
-        if (esFestivoTipo1(listaFestivosTipo1, año, mes, dia) || esFestivoTipo2(listaFestivosTipo2, año, mes, dia) || esFestivoTipo3(listaFestivosTipo3, año, mes, dia) || esFestivoTipo4(listaFestivosTipo4, año, mes, dia))
-            return "Es Festivo";
-        else 
-            return "No es Festivo";
-            
+        List<Festivo> listaFestivos = repositorio.findAll();
+        Date domingoRamos = getDomingoRamos(año);
+        Date domingoPascua = incrementarDias(domingoRamos, 7);
+
+        for (Festivo festivo : listaFestivos){
+            if ((festivo.getTipo().getId() == 1 && new Date(año - 1900, festivo.getMes() - 1, festivo.getDia()).compareTo(new Date(año - 1900, mes - 1, dia)) == 0) || 
+            (festivo.getTipo().getId() == 2 && siguienteLunes(new Date(año - 1900, festivo.getMes() - 1, festivo.getDia())).compareTo(new Date(año - 1900, mes - 1, dia)) == 0) ||
+            (festivo.getTipo().getId() == 3 && incrementarDias(domingoPascua, festivo.getDiasPascua()).compareTo(new Date(año - 1900, mes - 1, dia)) == 0) ||
+            (festivo.getTipo().getId() == 4 && siguienteLunes(incrementarDias(domingoPascua, festivo.getDiasPascua())).compareTo(new Date(año - 1900, mes - 1, dia)) == 0)){
+                return "Es Festivo";
+            }
+        }
+        return "No es Festivo";
     }
 
     @Override

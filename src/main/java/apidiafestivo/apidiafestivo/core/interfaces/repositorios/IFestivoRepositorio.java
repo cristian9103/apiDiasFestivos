@@ -10,6 +10,5 @@ import apidiafestivo.apidiafestivo.dominio.Festivo;
 
 @Repository
 public interface IFestivoRepositorio extends JpaRepository<Festivo, Integer> {
-    @Query("SELECT f FROM Festivo f WHERE f.tipo.id = ?1")
-    public List<Festivo> Buscar(int idTipo);
+    
 }
